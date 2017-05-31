@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+var vexo = require('commander');
+
+
+
+vexo
+  .usage('<blogname>')
+  .parse(process.argv);
+

@@ -6,7 +6,8 @@
     "sourceType": "module"
   },
   "env": {
-    "browser": true
+    "mocha": true,
+    "node": true
   },
   "plugins": [
     "html"
@@ -29,6 +30,7 @@
     "max-len": "off",
     "linebreak-style": "off",
     "no-unused-vars": "off",
-    "eol-last": "off"
+    "eol-last": "off",
+    "no-var": "off"
   }
 }

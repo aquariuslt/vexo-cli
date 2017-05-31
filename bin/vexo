@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+
+var vexo = require('commander');
+
+const version = require('../package.json').version;
+
+vexo
+  .version(version)
+  .usage('<command>')
+  .command('init', 'init a new index.js blog app')
+  .command('serve', 'local serve your index.js app')
+  .command('deploy', 'deploy to github pages (if deploy config all set)')
+  .parse(process.argv);
+
+

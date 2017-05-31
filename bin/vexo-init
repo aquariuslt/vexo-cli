@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+var vexo = require('commander');
+var inquirer = require('inquirer');
+
+vexo
+  .usage('<blogname>')
+  .parse(process.argv);
+
+console.log('init new vexo project:');
+
+
+
+

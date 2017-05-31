@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+var vexo = require('commander');
+
+
+vexo
+  .usage('')
+  .parse(process.argv);
