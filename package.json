@@ -1,6 +1,6 @@
 {
   "name": "vexo",
-  "version": "0.1.0-preview",
+  "version": "0.1.1",
   "description": "vue version aexo",
   "repository": "https://github.com/aquariuslt/vexo",
   "author": "Aquariuslt<superaquariuslt@gmail.com>",
@@ -14,14 +14,18 @@
   "bin": {
     "vexo": "bin/vexo"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "commander": "^2.9.0",
-    "inquirer": "^3.0.6"
+    "download-git-repo": "^1.0.1",
+    "inquirer": "^3.0.6",
+    "lodash": "^4.17.4",
+    "sanitize-filename": "^1.6.1",
+    "shelljs": "^0.7.8"
   },
   "devDependencies": {
-    "@types/commander": "^2.9.0",
+    "@types/commander": "^2.9.1",
+    "@types/shelljs": "^0.7.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.2.1",
     "babel-plugin-transform-runtime": "^6.22.0",

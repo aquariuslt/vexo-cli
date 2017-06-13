@@ -2,6 +2,16 @@
 
 var vexo = require('commander');
 var inquirer = require('inquirer');
+var shell = require('shelljs');
+
+var download = require('download-git-repo');
+
+var path = require('path');
+var _ = require('lodash');
+var sanitize = require('sanitize-filename');
+
+
+var cmder = require('../lib/cmd');
 
 vexo
   .usage('<blogname>')
@@ -10,5 +20,107 @@ vexo
 console.log('init new vexo project:');
 
 
+/**
+ *
+ * Pre-Require suites:
+ * 1.Initial Path
+ * condition: ${pwd} is an empty folder and argument <blogname> is undefined
+ * ask: init vexo app here?
+ *
+ * Questions:
+ * 1.Your application name ?
+ *
+ *
+ * Output:
+ * 1. application.json - > application.yml
+ * */
 
+var VEXO_GITHUB_REPO = 'aquariuslt/vexo';
+
+var CWD = _.last(process.cwd().split('/'));
+
+
+var DEFAULT_GENERATE_CONFIG = {
+  root: './',
+  applicationName: 'vexo-blog'
+};
+
+var questions = [
+  {
+    type: 'confirm',
+    name: 'cwdAsRoot',
+    message: 'Initial Your Project at current folder?',
+    default: true
+  },
+  {
+    type: 'input',
+    name: 'root',
+    message: 'What is the sub-folder name to generate your vexo-app?',
+    when: function (answers) {
+      return answers['cwdAsRoot'] === false;
+    },
+    validate: function (value) {
+      if (!_.isEmpty(value) && _.isEqual(value, sanitize(value))) {
+        return true;
+      }
+      return 'Please input a valid folder name';
+    }
+  },
+  {
+    type: 'input',
+    name: 'applicationName',
+    message: 'Your application name',
+    default: CWD
+  }
+];
+
+
+inquirer.prompt(questions)
+  .then(function (answers) {
+    return new Promise(function (resolve) {
+      console.log('OK! Generating your application config...');
+      var generatedConfig = _.assign(DEFAULT_GENERATE_CONFIG, answers);
+      console.log(JSON.stringify(generatedConfig, null, '  '));
+
+      resolve(generatedConfig);
+    });
+  })
+  .then(function (generatedConfig) {
+    return new Promise(function (resolve, reject) {
+      console.log('Cloning vexo-template...');
+      var targetRepoPath = generatedConfig['root'];
+      download(VEXO_GITHUB_REPO, targetRepoPath, function (error) {
+        if (error) {
+          console.error('Error');
+          console.error(error);
+          reject();
+        }
+        else {
+          resolve(generatedConfig);
+        }
+      });
+    });
+  })
+  .then(function (generatedConfig) {
+    return new Promise(function (resolve) {
+      console.log('Clone complete. Auto Installing Dependencies (You can Ctrl+C to install yourself by faster Yarn/Other Registry)');
+      var targetRepoPath = generatedConfig['root'];
+      shell.cd(targetRepoPath);
+      console.log(process.cwd());
+      shell.exec('npm install');
+      // shell.exec('yarn');
+      resolve(generatedConfig);
+    });
+  })
+  .then(function (generatedConfig) {
+    return new Promise(function () {
+      console.log('Clearing author\'s private settings...');
+      console.log('Updating your application yml');
+
+
+      var targetRepoPath = generatedConfig['root'];
+      console.log('Done. Please run \'cd ' + targetRepoPath + ' && vexo serve\' to see');
+    });
+  })
+;
 

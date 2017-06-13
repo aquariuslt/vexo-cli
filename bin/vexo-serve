@@ -2,7 +2,12 @@
 
 var vexo = require('commander');
 
+var shell = require('shelljs');
+
 
 vexo
   .usage('')
   .parse(process.argv);
+
+console.log('Please open your browser http://127.0.0.1:5000');
+shell.exec('npm run dev');

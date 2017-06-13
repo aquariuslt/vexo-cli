@@ -1,5 +1,9 @@
 # VEXO
 
+![https://www.npmjs.com/package/vexo](https://img.shields.io/npm/v/vexo.svg)
+![https://github.com/aquariuslt/vexo](https://travis-ci.org/aquariuslt/vexo.svg)
+![https://www.npmjs.com/package/vexo](https://img.shields.io/npm/dm/vexo.svg)
+
 An Vue version Aexo Blog App
 
 
@@ -8,7 +12,6 @@ An Vue version Aexo Blog App
 ```bash
 npm install -g vexo
 ```
-
 
 ## Usage
 
@@ -28,7 +31,6 @@ vexo serve
 ```bash
 vexo deploy
 ```
-
 
 
 ## Documentation
